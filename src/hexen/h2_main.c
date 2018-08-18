@@ -792,20 +792,22 @@ void H2_GameLoop(void)
     I_SetGrabMouseCallback(D_GrabMouseCallback);
     I_InitGraphics();
 
-    while (1)
-    {
-        // Frame syncronous IO operations
-        I_StartFrame();
+    D_GameLoop();
+}
 
-        // Process one or more tics
-        // Will run at least one tic
-        TryRunTics();
+void D_RunFrame()
+{
+    // Frame syncronous IO operations
+    I_StartFrame();
 
-        // Move positional sounds
-        S_UpdateSounds(players[displayplayer].mo);
+    // Process one or more tics
+    // Will run at least one tic
+    TryRunTics();
 
-        DrawAndBlit();
-    }
+    // Move positional sounds
+    S_UpdateSounds(players[displayplayer].mo);
+
+    DrawAndBlit();
 }
 
 //==========================================================================

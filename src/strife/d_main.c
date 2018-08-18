@@ -530,22 +530,23 @@ void D_DoomLoop (void)
         wipegamestate = gamestate;
     }
 
-    while (1)
-    {
-        // frame syncronous IO operations
-        I_StartFrame ();
-
-        // process one or more tics
-        TryRunTics (); // will run at least one tic
-
-        S_UpdateSounds (players[consoleplayer].mo);// move positional sounds
-
-        // Update display, next frame, with current state.
-        if (screenvisible)
-            D_Display ();
-    }
+    D_GameLoop();
 }
 
+void D_RunFrame()
+{
+    // frame syncronous IO operations
+    I_StartFrame ();
+
+    // process one or more tics
+    TryRunTics (); // will run at least one tic
+
+    S_UpdateSounds (players[consoleplayer].mo);// move positional sounds
+
+    // Update display, next frame, with current state.
+    if (screenvisible)
+        D_Display ();
+}
 
 
 //

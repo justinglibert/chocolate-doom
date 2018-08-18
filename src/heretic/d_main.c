@@ -246,19 +246,21 @@ void D_DoomLoop(void)
 
     main_loop_started = true;
 
-    while (1)
-    {
-        // Frame syncronous IO operations
-        I_StartFrame();
+    D_GameLoop();
+}
 
-        // Process one or more tics
-        // Will run at least one tic
-        TryRunTics();
+void D_RunFrame()
+{
+    // Frame syncronous IO operations
+    I_StartFrame();
 
-        // Move positional sounds
-        S_UpdateSounds(players[consoleplayer].mo);
-        D_Display();
-    }
+    // Process one or more tics
+    // Will run at least one tic
+    TryRunTics();
+
+    // Move positional sounds
+    S_UpdateSounds(players[consoleplayer].mo);
+    D_Display();
 }
 
 /*

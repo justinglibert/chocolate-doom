@@ -19,6 +19,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 #include "d_event.h"
 #include "d_loop.h"
 #include "d_ticcmd.h"
@@ -882,3 +886,17 @@ boolean D_NonVanillaPlayback(boolean conditional, int lumpnum,
     return true;
 }
 
+// all games provide this
+void D_RunFrame();
+
+void D_GameLoop()
+{
+#ifndef __EMSCRIPTEN__
+    while (1)
+    {
+        D_RunFrame ();
+    }
+#else
+    emscripten_set_main_loop(D_RunFrame, 0, 1);
+#endif
+}

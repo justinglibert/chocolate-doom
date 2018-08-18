@@ -84,5 +84,8 @@ boolean D_NonVanillaRecord(boolean conditional, const char *feature);
 boolean D_NonVanillaPlayback(boolean conditional, int lumpnum,
                              const char *feature);
 
+// Run game loop, this never returns
+void D_GameLoop();
+
 #endif
 

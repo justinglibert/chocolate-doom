@@ -30,6 +30,15 @@ then
         CFLAGS="-O$OPT_LEVEL -g $WARNINGS $orig_CFLAGS"
 fi
 
+AC_CHECK_HEADER([emscripten.h], [
+        EXEEXT=.js
+        LDFLAGS="$LDFLAGS -s ALLOW_MEMORY_GROWTH=1 -s FORCE_FILESYSTEM=1"
+        SDL_CFLAGS="-s USE_SDL=2"
+        SDL_LIBS=" "
+        SDLNET_CFLAGS="-s USE_SDL_NET=2"
+        SDLNET_LIBS=" "
+])
+
 PKG_CHECK_MODULES(SDL, [sdl2 >= 2.0.1])
 PKG_CHECK_MODULES(SDLMIXER, [SDL2_mixer >= 2.0.0])
 PKG_CHECK_MODULES(SDLNET, [SDL2_net >= 2.0.0])
