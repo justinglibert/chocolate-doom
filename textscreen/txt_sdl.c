@@ -592,7 +592,7 @@ signed int TXT_GetChar(void)
 {
     SDL_Event ev;
 
-    while (SDL_PollEvent(&ev))
+    while (SDL_WaitEventTimeout(&ev, 0))
     {
         // If there is an event callback, allow it to intercept this
         // event.

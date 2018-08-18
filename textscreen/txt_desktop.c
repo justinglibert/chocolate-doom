@@ -16,6 +16,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 #include "doomkeys.h"
 
 #include "txt_desktop.h"
@@ -352,35 +356,47 @@ void TXT_SetPeriodicCallback(TxtIdleCallback callback,
     periodic_callback_period = period;
 }
 
+static void TXT_RunFrame()
+{
+    TXT_DispatchEvents();
+
+    // After the last window is closed, exit the loop
+    if (num_windows <= 0)
+    {
+        TXT_ExitMainLoop();
+        return;
+    }
+
+    TXT_DrawDesktop();
+//        TXT_DrawASCIITable();
+
+    if (periodic_callback == NULL)
+    {
+#ifndef __EMSCRIPTEN__
+        TXT_Sleep(0);
+#endif
+    }
+    else
+    {
+#ifndef __EMSCRIPTEN__
+        TXT_Sleep(periodic_callback_period);
+#endif
+
+        periodic_callback(periodic_callback_data);
+    }
+}
+
 void TXT_GUIMainLoop(void)
 {
     main_loop_running = 1;
 
+#ifndef __EMSCRIPTEN__
     while (main_loop_running)
     {
-        TXT_DispatchEvents();
-
-        // After the last window is closed, exit the loop
-
-        if (num_windows <= 0)
-        {
-            TXT_ExitMainLoop();
-            continue;
-        }
-
-        TXT_DrawDesktop();
-//        TXT_DrawASCIITable();
-
-        if (periodic_callback == NULL)
-        {
-            TXT_Sleep(0);
-        }
-        else
-        {
-            TXT_Sleep(periodic_callback_period);
-
-            periodic_callback(periodic_callback_data);
-        }
+        TXT_RunFrame();
     }
+#else
+    emscripten_set_main_loop(TXT_RunFrame, 0, 1);
+#endif
 }
 
