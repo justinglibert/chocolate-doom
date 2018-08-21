@@ -313,6 +313,9 @@ void TXT_DispatchEvents(void)
 
 void TXT_ExitMainLoop(void)
 {
+#ifdef __EMSCRIPTEN__
+    emscripten_cancel_main_loop();
+#endif
     main_loop_running = 0;
 }
 
@@ -358,10 +361,14 @@ void TXT_SetPeriodicCallback(TxtIdleCallback callback,
 
 static void TXT_RunFrame()
 {
+    unsigned char *screendata;
+
+    screendata = TXT_GetScreenData();
+
     TXT_DispatchEvents();
 
-    // After the last window is closed, exit the loop
-    if (num_windows <= 0)
+    // After the last window is closed or we are freed, exit the loop
+    if (screendata == NULL || num_windows <= 0)
     {
         TXT_ExitMainLoop();
         return;
@@ -396,7 +403,7 @@ void TXT_GUIMainLoop(void)
         TXT_RunFrame();
     }
 #else
-    emscripten_set_main_loop(TXT_RunFrame, 0, 1);
+    emscripten_set_main_loop(TXT_RunFrame, 0, 0);
 #endif
 }
 

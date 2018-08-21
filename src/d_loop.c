@@ -897,6 +897,7 @@ void D_GameLoop()
         D_RunFrame ();
     }
 #else
-    emscripten_set_main_loop(D_RunFrame, 0, 1);
+    emscripten_set_main_loop(D_RunFrame, 0, 0);
+    I_AtExit(emscripten_cancel_main_loop, true);
 #endif
 }

@@ -64,6 +64,9 @@ void I_Endoom(byte *endoom_data)
     {
         TXT_UpdateScreen();
 
+#ifdef __EMSCRIPTEN__
+        break;
+#endif
         if (TXT_GetChar() > 0)
         {
             break;
