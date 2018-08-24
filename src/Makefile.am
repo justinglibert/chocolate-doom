@@ -139,7 +139,7 @@ else
 @PROGRAM_PREFIX@doom_SOURCES=$(SOURCE_FILES_WITH_DEH)
 endif
 
-@PROGRAM_PREFIX@doom_LDADD = doom/libdoom.a $(EXTRA_LIBS)
+@PROGRAM_PREFIX@doom_LDADD = doom/libdoom.a $(EXTRA_LIBS) @DOOM_LDFLAGS@
 
 if HAVE_WINDRES
 @PROGRAM_PREFIX@heretic_SOURCES=$(SOURCE_FILES_WITH_DEH) resource.rc
@@ -147,7 +147,7 @@ else
 @PROGRAM_PREFIX@heretic_SOURCES=$(SOURCE_FILES_WITH_DEH)
 endif
 
-@PROGRAM_PREFIX@heretic_LDADD = heretic/libheretic.a $(EXTRA_LIBS)
+@PROGRAM_PREFIX@heretic_LDADD = heretic/libheretic.a $(EXTRA_LIBS) @HERETIC_LDFLAGS@
 
 if HAVE_WINDRES
 @PROGRAM_PREFIX@hexen_SOURCES=$(SOURCE_FILES) resource.rc
@@ -155,7 +155,7 @@ else
 @PROGRAM_PREFIX@hexen_SOURCES=$(SOURCE_FILES)
 endif
 
-@PROGRAM_PREFIX@hexen_LDADD = hexen/libhexen.a $(EXTRA_LIBS)
+@PROGRAM_PREFIX@hexen_LDADD = hexen/libhexen.a $(EXTRA_LIBS) @HEXEN_LDFLAGS@
 
 if HAVE_WINDRES
 @PROGRAM_PREFIX@strife_SOURCES=$(SOURCE_FILES_WITH_DEH) resource.rc
@@ -163,7 +163,7 @@ else
 @PROGRAM_PREFIX@strife_SOURCES=$(SOURCE_FILES_WITH_DEH)
 endif
 
-@PROGRAM_PREFIX@strife_LDADD = strife/libstrife.a $(EXTRA_LIBS)
+@PROGRAM_PREFIX@strife_LDADD = strife/libstrife.a $(EXTRA_LIBS) @STRIFE_LDFLAGS@
 
 $(SETUP_BINARIES): @PROGRAM_PREFIX@setup$(EXEEXT)
 	cp @PROGRAM_PREFIX@setup$(EXEEXT) $@
@@ -205,7 +205,7 @@ else
 endif
 @PROGRAM_PREFIX@setup_LDADD = setup/libsetup.a                             \
                         $(top_builddir)/textscreen/libtextscreen.a   \
-                        @LDFLAGS@ @SDL_LIBS@ @SDLMIXER_LIBS@ @SDLNET_LIBS@
+                        @LDFLAGS@ @SDL_LIBS@ @SDLMIXER_LIBS@ @SDLNET_LIBS@ @SETUP_LDFLAGS@
 
 EXTRA_DIST =                        \
         CMakeLists.txt              \
