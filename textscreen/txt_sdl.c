@@ -410,6 +410,9 @@ void TXT_UpdateScreenArea(int x, int y, int w, int h)
     int x_end;
     int y_end;
 
+    if (screenbuffer == NULL)
+        return;
+
     SDL_LockSurface(screenbuffer);
 
     x_end = LimitToRange(x + w, 0, TXT_SCREEN_W);

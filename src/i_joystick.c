@@ -165,7 +165,6 @@ void I_InitJoystick(void)
         printf("I_InitJoystick: Couldn't find joystick with GUID \"%s\": "
                "device not found or not connected?\n",
                joystick_guid);
-        SDL_QuitSubSystem(SDL_INIT_JOYSTICK);
         return;
     }
 
@@ -176,7 +175,6 @@ void I_InitJoystick(void)
     if (joystick == NULL)
     {
         printf("I_InitJoystick: Failed to open joystick #%i\n", index);
-        SDL_QuitSubSystem(SDL_INIT_JOYSTICK);
         return;
     }
 
@@ -190,7 +188,6 @@ void I_InitJoystick(void)
 
         SDL_JoystickClose(joystick);
         joystick = NULL;
-        SDL_QuitSubSystem(SDL_INIT_JOYSTICK);
     }
 
     SDL_JoystickEventState(SDL_ENABLE);

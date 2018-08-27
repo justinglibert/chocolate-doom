@@ -459,6 +459,14 @@ void I_GetEvent(void)
                 }
                 break;
 
+            case SDL_JOYDEVICEADDED:
+                I_InitJoystick();
+                break;
+
+            case SDL_JOYDEVICEREMOVED:
+                I_ShutdownJoystick();
+                break;
+
             default:
                 break;
         }
