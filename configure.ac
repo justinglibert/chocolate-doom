@@ -32,7 +32,7 @@ fi
 
 AC_CHECK_HEADER([emscripten.h], [
         EXEEXT=.js
-        LDFLAGS="$LDFLAGS -s ALLOW_MEMORY_GROWTH=1 -s FORCE_FILESYSTEM=1 -s MODULARIZE=1 -s EXTRA_EXPORTED_RUNTIME_METHODS=['FS']"
+        LDFLAGS="$LDFLAGS -s ALLOW_MEMORY_GROWTH=1 -s FORCE_FILESYSTEM=1 -s MODULARIZE=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0"
         SDL_CFLAGS="-s USE_SDL=2"
         SDL_LIBS=" "
         SDLNET_CFLAGS="-s USE_SDL_NET=2"
@@ -155,7 +155,6 @@ AC_SUBST(SDLNET_LIBS)
 AC_SUBST(SETUP_LDFLAGS)
 AC_SUBST(DOOM_LDFLAGS)
 AC_SUBST(HERETIC_LDFLAGS)
-AC_SUBST(HEXEN_LDFLAGS)
 AC_SUBST(STRIFE_LDFLAGS)
 
 AC_SUBST(ac_aux_dir)
@@ -180,7 +179,6 @@ man/Makefile
 man/bash-completion/Makefile
 man/bash-completion/doom.template
 man/bash-completion/heretic.template
-man/bash-completion/hexen.template
 man/bash-completion/strife.template
 midiproc/Makefile
 opl/Makefile
@@ -199,9 +197,6 @@ src/doom/Makefile
 src/heretic.appdata.xml
 src/heretic.desktop
 src/heretic/Makefile
-src/hexen.appdata.xml
-src/hexen.desktop
-src/hexen/Makefile
 src/resource.rc
 src/setup-res.rc
 src/setup/Makefile
